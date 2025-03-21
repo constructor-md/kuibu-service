@@ -1,4 +1,4 @@
-package com.awesome.kuibuservice.aop;
+package com.awesome.kuibuservice.filter;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -52,9 +52,9 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     }
 
     @Override
-    public ServletInputStream getInputStream() throws IOException {
+    public ServletInputStream getInputStream() {
         final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        ServletInputStream servletInputStream = new ServletInputStream() {
+        return new ServletInputStream() {
             @Override
             public boolean isFinished() {
                 return false;
@@ -74,7 +74,6 @@ public class RequestWrapper extends HttpServletRequestWrapper {
                 return byteArrayInputStream.read();
             }
         };
-        return servletInputStream;
 
     }
 
