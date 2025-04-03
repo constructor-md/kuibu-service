@@ -1,5 +1,6 @@
 package com.awesome.kuibuservice.service;
 
+import com.awesome.kuibuservice.model.dto.DailyWordsDto;
 import com.awesome.kuibuservice.model.entity.DailyWords;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -9,5 +10,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2025-03-20 13:33:00
 */
 public interface DailyWordsService extends IService<DailyWords> {
+
+    DailyWordsDto getRandomOneSentence();
 
 }

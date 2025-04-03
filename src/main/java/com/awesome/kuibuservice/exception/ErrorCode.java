@@ -9,6 +9,7 @@ public enum ErrorCode {
     PARAMS_ERROR(600501, "请求参数错误"),
     NOT_LOGIN_ERROR(600502, "未登录"),
     OPERATOR_ERROR(600503, "操作失败"),
+    REQUEST_LIMITED(600504, "请求频率限制中"),
 
     ;
 

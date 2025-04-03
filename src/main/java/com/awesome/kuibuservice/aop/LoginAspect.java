@@ -6,6 +6,7 @@ import com.awesome.kuibuservice.exception.BusinessException;
 import com.awesome.kuibuservice.exception.ErrorCode;
 import com.awesome.kuibuservice.model.entity.UserInfo;
 import com.awesome.kuibuservice.service.UserInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -19,10 +20,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.TimeUnit;
 
 @Aspect
 @Component
 @Order(value = 1)
+@Slf4j
 public class LoginAspect {
 
     @Resource
@@ -46,10 +49,12 @@ public class LoginAspect {
                 throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
             }
             // 检查有效
-            String userId = (String) redisTemplate.opsForValue().get(Constants.REDIS_ACCESS_TOKEN_PREFIX + token);
-            if (StrUtil.isBlank(userId)) {
+            Long userId = (Long) redisTemplate.opsForValue().get(Constants.REDIS_ACCESS_TOKEN_PREFIX + token);
+            if (userId == null) {
                 throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
             } else {
+                // 自动续期
+                redisTemplate.opsForValue().set(Constants.REDIS_ACCESS_TOKEN_PREFIX + token, userId, 1, TimeUnit.DAYS);
                 // 保存用户信息上下文以便使用
                 UserInfo userInfo = userInfoService.getById(userId);
                 UserInfoContext.set(userInfo);

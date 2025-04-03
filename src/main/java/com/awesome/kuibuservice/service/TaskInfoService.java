@@ -10,4 +10,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface TaskInfoService extends IService<TaskInfo> {
 
+    void removeByTaskId(Long taskId, Long userId);
+
+    void removeByGoalId(Long goalId, Long userId);
+
 }

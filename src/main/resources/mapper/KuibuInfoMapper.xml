@@ -17,4 +17,17 @@
         id,task_id,count,
         user_id,create_time,update_time
     </sql>
+
+
+    <select id="selectDataGroupByDate" resultType="com.awesome.kuibuservice.model.dto.TaskDateGroupDto">
+        SELECT task_id as taskId, date_format(create_time, '%m-%d') as date, sum(count) as value
+        FROM kuibu_info
+        WHERE create_time > #{startDate}
+        AND task_id IN
+        <foreach item="taskId" collection="taskIds" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+        GROUP BY task_id, date_format(create_time, '%m-%d')
+    </select>
+
 </mapper>

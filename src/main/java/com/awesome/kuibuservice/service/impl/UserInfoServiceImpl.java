@@ -5,7 +5,7 @@ import com.awesome.kuibuservice.commons.Constants;
 import com.awesome.kuibuservice.exception.BusinessException;
 import com.awesome.kuibuservice.exception.ErrorCode;
 import com.awesome.kuibuservice.exception.ThrowUtils;
-import com.awesome.kuibuservice.model.dto.WechatSessionResponse;
+import com.awesome.kuibuservice.model.dto.wx.WechatSessionResponse;
 import com.awesome.kuibuservice.model.entity.SysConfig;
 import com.awesome.kuibuservice.model.entity.UserInfo;
 import com.awesome.kuibuservice.service.SysConfigService;

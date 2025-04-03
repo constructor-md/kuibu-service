@@ -1,4 +1,4 @@
-package com.awesome.kuibuservice.model.dto;
+package com.awesome.kuibuservice.model.dto.wx;
 
 import lombok.Data;
 
