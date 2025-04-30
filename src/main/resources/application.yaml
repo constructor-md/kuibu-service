@@ -44,15 +44,16 @@ mybatis-plus:
     # 仅在开发环境开启日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 接口文档配置
-knife4j:
-  enable: true
-  openapi:
-    title: "接口文档"
-    version: 1.0
-    group:
-      default:
-        api-rule: package
-        api-rule-resources:
-          - com.awesome.kuibuservice.controller
+# Prometheus springboot监控配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name} # 暴露的数据中添加application label
 
